@@ -39,16 +39,15 @@
     --shadow-base:#08020f;
   }
   *{box-sizing:border-box}
-  html,body{
-    margin:0;padding:0;width:100%;max-width:100%;
-    overflow-x:hidden;overscroll-behavior-x:none;
-  }
+  html,body{margin:0;padding:0;width:100%;max-width:100%}
   body{
     background:var(--bg-deep);
     font-family:'Barlow Condensed',system-ui,sans-serif;
     -webkit-tap-highlight-color:transparent;
     color:#fff;
     position:relative;
+    overflow-x:hidden;
+    overscroll-behavior-x:none;
   }
   a{color:var(--gold);text-decoration:none}
 
@@ -61,7 +60,6 @@
   .page{
     min-height:100vh;
     position:relative;
-    overflow-x:hidden;
     background:
       radial-gradient(ellipse 90% 45% at 50% -8%, var(--bg-glow) 0%, rgba(106,36,160,0) 60%),
       radial-gradient(ellipse 70% 40% at 85% 15%, rgba(138,19,38,.35) 0%, rgba(138,19,38,0) 60%),
