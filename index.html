@@ -39,26 +39,25 @@
     --shadow-base:#08020f;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;width:100%;max-width:100%}
-  html{scrollbar-color:var(--gold-dark) var(--bg-deep);scrollbar-width:thin}
+  html,body{
+    margin:0;padding:0;width:100%;max-width:100%;
+    overscroll-behavior-x:none;touch-action:pan-y;
+    scrollbar-color:var(--gold-dark) var(--bg-deep);scrollbar-width:thin;
+  }
   body{
     background:var(--bg-deep);
     font-family:'Barlow Condensed',system-ui,sans-serif;
     -webkit-tap-highlight-color:transparent;
     color:#fff;
     position:relative;
-    overflow-x:hidden;
-    overscroll-behavior-x:none;
-    touch-action:pan-y;
   }
-  html{touch-action:pan-y}
-  body::-webkit-scrollbar{width:10px}
-  body::-webkit-scrollbar-track{background:var(--bg-deep)}
-  body::-webkit-scrollbar-thumb{
+  html::-webkit-scrollbar,body::-webkit-scrollbar{width:10px}
+  html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:var(--bg-deep)}
+  html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb{
     background:linear-gradient(180deg,var(--gold),var(--gold-dark));
     border-radius:6px;border:2px solid var(--bg-deep);
   }
-  body::-webkit-scrollbar-thumb:hover{background:var(--gold-light)}
+  html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover{background:var(--gold-light)}
   a{color:var(--gold);text-decoration:none}
 
   @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(calc(-1 * var(--marquee-distance, 1200px)))}}
@@ -75,6 +74,7 @@
       radial-gradient(ellipse 70% 40% at 85% 15%, rgba(138,19,38,.35) 0%, rgba(138,19,38,0) 60%),
       linear-gradient(160deg, var(--bg-mid) 0%, var(--bg-deep) 55%, #05010a 100%);
   }
+  .content-clip{position:relative;overflow:hidden}
   .leaf-deco{
     position:absolute;width:230px;height:230px;pointer-events:none;z-index:0;
     opacity:.13;filter:sepia(1) saturate(2.4) hue-rotate(-12deg) brightness(1.15);
@@ -248,17 +248,18 @@
 </head>
 <body>
 <div class="page">
-  <div class="leaf-deco leaf-tl"><img src="icone-faixa.png" alt=""></div>
-  <div class="leaf-deco leaf-tr"><img src="icone-faixa.png" alt=""></div>
-  <div class="leaf-deco leaf-bl"><img src="icone-faixa.png" alt=""></div>
-  <div class="leaf-deco leaf-br"><img src="icone-faixa.png" alt=""></div>
-
   <div class="band" aria-hidden="false">
     <div class="band-track" id="bandTrack">
       <div class="band-group" id="bandGroupA"></div>
       <div class="band-group" id="bandGroupB"></div>
     </div>
   </div>
+
+  <div class="content-clip">
+  <div class="leaf-deco leaf-tl"><img src="icone-faixa.png" alt=""></div>
+  <div class="leaf-deco leaf-tr"><img src="icone-faixa.png" alt=""></div>
+  <div class="leaf-deco leaf-bl"><img src="icone-faixa.png" alt=""></div>
+  <div class="leaf-deco leaf-br"><img src="icone-faixa.png" alt=""></div>
 
   <main>
     <header>
@@ -341,11 +342,12 @@
     </section>
 
     <footer>
-      <p class="footer-tagline">015 Store | Streetwear autêntico, direto de Sorocaba/SP pra quebrada toda.</p>
+      <p class="footer-tagline">015 Store | Streetwear autêntico,<br>Direto de Sorocaba/SP pra quebrada toda.</p>
       <p class="footer-legal">© 2026 015 Store · Todos os direitos reservados.</p>
       <p class="footer-legal">CNPJ: 00.000.000/0000-00 · Sorocaba/SP</p>
     </footer>
   </main>
+  </div>
 </div>
 
 <script>
