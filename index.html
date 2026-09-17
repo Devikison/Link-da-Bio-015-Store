@@ -49,19 +49,22 @@
       radial-gradient(ellipse 70% 40% at 85% 15%, rgba(138,19,38,.35) 0%, rgba(138,19,38,0) 60%),
       linear-gradient(160deg, var(--bg-mid) 0%, var(--bg-deep) 55%, #05010a 100%);
   }
-  .leaf-deco{position:absolute;width:210px;height:210px;color:var(--gold);opacity:.16;pointer-events:none;z-index:0}
-  .leaf-deco svg{display:block;width:100%;height:100%}
-  .leaf-tl{top:-26px;left:-46px;transform:scaleY(-1)}
-  .leaf-tr{top:-26px;right:-46px;transform:scale(-1,-1)}
-  .leaf-bl{bottom:-26px;left:-46px}
-  .leaf-br{bottom:-26px;right:-46px;transform:scaleX(-1)}
+  .leaf-deco{
+    position:absolute;width:230px;height:230px;pointer-events:none;z-index:0;
+    opacity:.13;filter:sepia(1) saturate(2.4) hue-rotate(-12deg) brightness(1.15);
+  }
+  .leaf-deco img{display:block;width:100%;height:100%;object-fit:contain}
+  .leaf-tl{top:-34px;left:-48px;transform:rotate(-10deg)}
+  .leaf-tr{top:-34px;right:-48px;transform:rotate(10deg) scaleX(-1)}
+  .leaf-bl{bottom:-34px;left:-48px;transform:rotate(8deg)}
+  .leaf-br{bottom:-34px;right:-48px;transform:rotate(-8deg) scaleX(-1)}
 
   @media (min-width:768px){
-    .leaf-deco{width:320px;height:320px;opacity:.18}
-    .leaf-tl,.leaf-tr{top:-40px}
-    .leaf-bl,.leaf-br{bottom:-40px}
-    .leaf-tl,.leaf-bl{left:-70px}
-    .leaf-tr,.leaf-br{right:-70px}
+    .leaf-deco{width:340px;height:340px;opacity:.15}
+    .leaf-tl,.leaf-tr{top:-54px}
+    .leaf-bl,.leaf-br{bottom:-54px}
+    .leaf-tl,.leaf-bl{left:-80px}
+    .leaf-tr,.leaf-br{right:-80px}
   }
 
   .band{
@@ -105,8 +108,8 @@
     text-shadow:0 2px 0 var(--wine-dark),0 8px 22px rgba(0,0,0,.5);
   }
   .tagline{
-    margin:2px 0 0;font-size:18.5px;font-weight:700;letter-spacing:.06em;
-    text-transform:uppercase;color:var(--gold-light);
+    margin:2px 0 0;font-size:18.5px;font-weight:700;font-style:italic;letter-spacing:.06em;
+    text-transform:uppercase;color:#fff;
   }
   .divider{
     width:96px;height:2px;margin-top:4px;border-radius:2px;
@@ -144,15 +147,17 @@
   .btn span{position:relative;z-index:1}
 
   .address{
-    margin-top:-8px;display:inline-flex;align-items:center;gap:7px;
-    padding:9px 20px;border-radius:999px;
+    margin-top:-8px;display:flex;align-items:center;gap:6px;
+    width:fit-content;max-width:100%;min-width:0;
+    padding:9px clamp(12px,4vw,20px);border-radius:999px;
     background:rgba(255,255,255,.09);
     border:1px solid rgba(230,192,95,.35);
     backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
     box-shadow:0 4px 14px rgba(0,0,0,.3);
-    font-size:13.5px;letter-spacing:.03em;color:#fff;text-align:center;
+    font-size:clamp(9.5px,3.3vw,13.5px);letter-spacing:.02em;color:#fff;
   }
   .address svg{width:15px;height:15px;flex:none}
+  .address-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 
   section.faq{
     width:100%;display:flex;flex-direction:column;gap:8px;
@@ -165,21 +170,30 @@
   .faq-item{
     border-radius:12px;background:rgba(0,0,0,.32);
     border:1px solid rgba(230,192,95,.22);overflow:hidden;
-    transition:border-color .2s ease;
+    transition:border-color .5s ease,background-color .5s ease;
   }
-  .faq-item[open]{border-color:rgba(230,192,95,.5)}
-  .faq-item summary{
-    list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
-    gap:12px;padding:13px 16px;font-size:17px;font-weight:600;letter-spacing:.01em;color:#fff;
+  .faq-item.open{border-color:rgba(230,192,95,.5);background:rgba(0,0,0,.4)}
+  .faq-q{
+    all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+    gap:12px;width:100%;padding:13px 16px;font-family:inherit;font-size:17px;font-weight:600;
+    letter-spacing:.01em;color:#fff;transition:background-color .5s ease;
   }
-  .faq-item summary::-webkit-details-marker{display:none}
-  .faq-sign{color:var(--gold);font-size:20px;line-height:1;flex:none;transition:transform .2s ease}
-  .faq-item[open] .faq-sign{transform:rotate(45deg)}
+  .faq-q:hover{background:rgba(255,255,255,.05)}
+  .faq-sign{color:var(--gold);font-size:20px;line-height:1;flex:none;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+  .faq-item.open .faq-sign{transform:rotate(45deg)}
+  .faq-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.4,0,.2,1)}
+  .faq-item.open .faq-panel{grid-template-rows:1fr}
+  .faq-panel-inner{overflow:hidden;min-height:0}
   .faq-body{margin:0;padding:0 16px 14px;font-size:15.5px;line-height:1.45;color:rgba(255,255,255,.78)}
 
-  footer{
-    margin-top:4px;font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;
-    color:rgba(255,255,255,.38);text-align:center;
+  footer{margin-top:8px;text-align:center;display:flex;flex-direction:column;gap:6px}
+  .footer-tagline{
+    margin:0;font-size:14px;font-weight:600;letter-spacing:.02em;
+    color:var(--gold-light);
+  }
+  .footer-legal{
+    margin:0;font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+    color:rgba(255,255,255,.4);
   }
 
   @media (min-width:768px){
@@ -191,28 +205,11 @@
 </style>
 </head>
 <body>
-<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
-  <defs>
-    <symbol id="ic-leaf" viewBox="-30 -16 60 32">
-      <path d="M-28 0 C-18 -14 8 -18 28 -8 C16 10 -10 15 -28 0 Z"/>
-    </symbol>
-    <symbol id="ic-branch" viewBox="0 0 300 300">
-      <path d="M150 292 C 100 272 42 224 22 156 C 12 116 20 82 42 54" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".9"/>
-      <g transform="translate(146,278) rotate(-78) scale(1.15)"><use href="#ic-leaf"/></g>
-      <g transform="translate(112,252) rotate(-98) scale(1.05)"><use href="#ic-leaf"/></g>
-      <g transform="translate(80,218) rotate(-118) scale(0.95)"><use href="#ic-leaf"/></g>
-      <g transform="translate(52,180) rotate(-138) scale(0.85)"><use href="#ic-leaf"/></g>
-      <g transform="translate(32,142) rotate(-153) scale(0.72)"><use href="#ic-leaf"/></g>
-      <g transform="translate(22,102) rotate(-165) scale(0.6)"><use href="#ic-leaf"/></g>
-      <g transform="translate(28,66) rotate(-175) scale(0.48)"><use href="#ic-leaf"/></g>
-    </symbol>
-  </defs>
-</svg>
 <div class="page">
-  <div class="leaf-deco leaf-tl"><svg><use href="#ic-branch"/></svg></div>
-  <div class="leaf-deco leaf-tr"><svg><use href="#ic-branch"/></svg></div>
-  <div class="leaf-deco leaf-bl"><svg><use href="#ic-branch"/></svg></div>
-  <div class="leaf-deco leaf-br"><svg><use href="#ic-branch"/></svg></div>
+  <div class="leaf-deco leaf-tl"><img src="icone-faixa.png" alt=""></div>
+  <div class="leaf-deco leaf-tr"><img src="icone-faixa.png" alt=""></div>
+  <div class="leaf-deco leaf-bl"><img src="icone-faixa.png" alt=""></div>
+  <div class="leaf-deco leaf-br"><img src="icone-faixa.png" alt=""></div>
 
   <div class="band" aria-hidden="false">
     <div class="band-track" id="bandTrack">
@@ -224,7 +221,7 @@
   <main>
     <header>
       <div class="logo-wrap">
-        <img src="icone-faixa.png" alt="015.Store">
+        <img src="logo-015-store.png" alt="015.Store">
       </div>
       <h1 class="brand-name">015.STORE</h1>
       <p class="tagline">Trajando a quebrada desde 2019!</p>
@@ -260,39 +257,53 @@
 
     <p class="address">
       <svg viewBox="0 0 24 24" fill="none" stroke="#e6c05f" stroke-width="2"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
-      Rua Francisco Henrique da Rosa, 347 • Sorocaba/SP
+      <span class="address-text">Rua Francisco Henrique da Rosa, 347 • Sorocaba/SP</span>
     </p>
 
     <section class="faq">
       <h2 class="faq-title">PERGUNTAS FREQUENTES</h2>
 
-      <details class="faq-item" name="faq">
-        <summary>Qual o prazo de entrega?<span class="faq-sign">+</span></summary>
-        <p class="faq-body">Enviamos em até 2 dias úteis após a confirmação do pagamento. O prazo dos Correios varia conforme a região.</p>
-      </details>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Qual o prazo de entrega?<span class="faq-sign">+</span></button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <p class="faq-body">Enviamos em até 2 dias úteis após a confirmação do pagamento. O prazo dos Correios varia conforme a região.</p>
+        </div></div>
+      </div>
 
-      <details class="faq-item" name="faq">
-        <summary>Frete grátis a partir de quanto?<span class="faq-sign">+</span></summary>
-        <p class="faq-body">Frete grátis para compras acima de R$499.</p>
-      </details>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Frete grátis a partir de quanto?<span class="faq-sign">+</span></button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <p class="faq-body">Frete grátis para compras acima de R$499.</p>
+        </div></div>
+      </div>
 
-      <details class="faq-item" name="faq">
-        <summary>Formas de pagamento aceitas?<span class="faq-sign">+</span></summary>
-        <p class="faq-body">Pix, cartão de crédito (parcelado) e boleto.</p>
-      </details>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Formas de pagamento aceitas?<span class="faq-sign">+</span></button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <p class="faq-body">Pix, cartão de crédito (parcelado) e boleto.</p>
+        </div></div>
+      </div>
 
-      <details class="faq-item" name="faq">
-        <summary>Como faço para trocar um produto?<span class="faq-sign">+</span></summary>
-        <p class="faq-body">Chame no WhatsApp em até 7 dias após o recebimento, com a peça sem uso e com etiqueta.</p>
-      </details>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Como faço para trocar um produto?<span class="faq-sign">+</span></button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <p class="faq-body">Chame no WhatsApp em até 7 dias após o recebimento, com a peça sem uso e com etiqueta.</p>
+        </div></div>
+      </div>
 
-      <details class="faq-item" name="faq">
-        <summary>As peças são originais?<span class="faq-sign">+</span></summary>
-        <p class="faq-body">Sim. Trabalhamos apenas com peças originais das marcas.</p>
-      </details>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">As peças são originais?<span class="faq-sign">+</span></button>
+        <div class="faq-panel"><div class="faq-panel-inner">
+          <p class="faq-body">Sim. Trabalhamos apenas com peças originais das marcas.</p>
+        </div></div>
+      </div>
     </section>
 
-    <footer>© 015 Store · Sorocaba/SP</footer>
+    <footer>
+      <p class="footer-tagline">015 Store | Streetwear autêntico, direto de Sorocaba/SP pra quebrada toda.</p>
+      <p class="footer-legal">© 2026 015 Store · Todos os direitos reservados.</p>
+      <p class="footer-legal">CNPJ: 00.000.000/0000-00 · Sorocaba/SP</p>
+    </footer>
   </main>
 </div>
 
@@ -329,14 +340,19 @@
     }
   })();
 
-  // only one FAQ item open at a time (native <details name> handles this in modern browsers;
-  // this keeps older engines in sync and flips the +/- sign)
+  // FAQ accordion: only one item open at a time, animated via the .faq-panel
+  // grid-template-rows transition in CSS (native <details> can't transition its reveal).
   document.querySelectorAll('.faq-item').forEach(function(item){
-    item.addEventListener('toggle', function(){
-      if (item.open) {
-        document.querySelectorAll('.faq-item').forEach(function(other){
-          if (other !== item) other.open = false;
-        });
+    var btn = item.querySelector('.faq-q');
+    btn.addEventListener('click', function(){
+      var willOpen = !item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(other){
+        other.classList.remove('open');
+        other.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (willOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
       }
     });
   });
