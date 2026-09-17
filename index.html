@@ -35,7 +35,7 @@
   }
   a{color:var(--gold);text-decoration:none}
 
-  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(calc(-1 * var(--marquee-distance, 1200px)))}}
   @keyframes glow{0%,100%{opacity:1;filter:drop-shadow(0 0 2px rgba(230,192,95,.6))}50%{opacity:.5;filter:drop-shadow(0 0 0 transparent)}}
   @keyframes floatLogo{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
   @keyframes shine{0%{background-position:-200% 0}100%{background-position:200% 0}}
@@ -72,7 +72,13 @@
     overflow:hidden;height:42px;
     display:flex;align-items:center;
   }
-  .band-track{display:flex;width:max-content;animation:marquee 42s linear infinite}
+  .band-track{
+    display:flex;width:max-content;
+    animation:marquee 42s linear infinite;
+    opacity:0;transition:opacity .25s ease;
+  }
+  .band-track.is-ready{opacity:1}
+  .band-group{display:flex;flex:none}
   .band-item{
     display:flex;align-items:center;gap:14px;
     padding:0 26px;white-space:nowrap;
@@ -93,8 +99,13 @@
     animation:floatLogo 5s ease-in-out infinite;
   }
   .logo-wrap img{width:100%;display:block}
+  .brand-name{
+    margin:10px 0 0;font-family:Anton,'Barlow Condensed',sans-serif;
+    font-size:40px;line-height:1;letter-spacing:.06em;color:#fff;
+    text-shadow:0 2px 0 var(--wine-dark),0 8px 22px rgba(0,0,0,.5);
+  }
   .tagline{
-    margin:2px 0 0;font-size:15.5px;font-weight:700;letter-spacing:.08em;
+    margin:2px 0 0;font-size:18.5px;font-weight:700;letter-spacing:.06em;
     text-transform:uppercase;color:var(--gold-light);
   }
   .divider{
@@ -174,6 +185,8 @@
   @media (min-width:768px){
     main{max-width:480px;padding-top:44px}
     .logo-wrap{width:180px}
+    .brand-name{font-size:46px}
+    .tagline{font-size:20px}
   }
 </style>
 </head>
@@ -202,14 +215,19 @@
   <div class="leaf-deco leaf-br"><svg><use href="#ic-branch"/></svg></div>
 
   <div class="band" aria-hidden="false">
-    <div class="band-track" id="bandTrack"></div>
+    <div class="band-track" id="bandTrack">
+      <div class="band-group" id="bandGroupA"></div>
+      <div class="band-group" id="bandGroupB"></div>
+    </div>
   </div>
 
   <main>
     <header>
       <div class="logo-wrap">
-        <img src="logo-015-store.png" alt="015.Store • Trajando a quebrada desde 2019">
+        <img src="icone-faixa.png" alt="015.Store">
       </div>
+      <h1 class="brand-name">015.STORE</h1>
+      <p class="tagline">Trajando a quebrada desde 2019!</p>
       <div class="divider"></div>
     </header>
 
@@ -279,15 +297,36 @@
 </div>
 
 <script>
-  // marquee: builds "GANHE FRETE GRÁTIS • Acima de R$499" repeated, separated by the crown icon, duplicated for a seamless loop
+  // marquee: two identical groups, translated by group A's own measured pixel width —
+  // avoids the drift/snap you get from translateX(-50%) when the two halves don't render
+  // to the exact same width (fonts/images loading late, sub-pixel rounding, etc).
   (function(){
     var TXT = 'GANHE FRETE GRÁTIS • Acima de R$499';
     var track = document.getElementById('bandTrack');
+    var groupA = document.getElementById('bandGroupA');
+    var groupB = document.getElementById('bandGroupB');
     var html = '';
-    for (var i = 0; i < 12; i++) {
+    for (var i = 0; i < 10; i++) {
       html += '<span class="band-item">' + TXT + ' <img src="crown-mini.png" alt=""></span>';
     }
-    track.innerHTML = html + html; // duplicated so -50% translateX loops seamlessly
+    groupA.innerHTML = html;
+    groupB.innerHTML = html;
+
+    function updateDistance(){
+      var w = groupA.getBoundingClientRect().width;
+      if (w > 0) {
+        track.style.setProperty('--marquee-distance', w + 'px');
+        track.classList.add('is-ready');
+      }
+    }
+    updateDistance();
+
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(updateDistance).observe(groupA);
+    } else {
+      window.addEventListener('load', updateDistance);
+      window.addEventListener('resize', updateDistance);
+    }
   })();
 
   // only one FAQ item open at a time (native <details name> handles this in modern browsers;
