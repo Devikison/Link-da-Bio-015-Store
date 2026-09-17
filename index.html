@@ -40,6 +40,7 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;width:100%;max-width:100%}
+  html{scrollbar-color:var(--gold-dark) var(--bg-deep);scrollbar-width:thin}
   body{
     background:var(--bg-deep);
     font-family:'Barlow Condensed',system-ui,sans-serif;
@@ -49,6 +50,13 @@
     overflow-x:hidden;
     overscroll-behavior-x:none;
   }
+  body::-webkit-scrollbar{width:10px}
+  body::-webkit-scrollbar-track{background:var(--bg-deep)}
+  body::-webkit-scrollbar-thumb{
+    background:linear-gradient(180deg,var(--gold),var(--gold-dark));
+    border-radius:6px;border:2px solid var(--bg-deep);
+  }
+  body::-webkit-scrollbar-thumb:hover{background:var(--gold-light)}
   a{color:var(--gold);text-decoration:none}
 
   @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(calc(-1 * var(--marquee-distance, 1200px)))}}
