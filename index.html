@@ -98,7 +98,7 @@
 
   header{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;animation:fadeUp .6s ease both}
   .logo-wrap{
-    width:160px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55));
+    width:225px;filter:drop-shadow(0 10px 24px rgba(0,0,0,.55));
     animation:floatLogo 5s ease-in-out infinite;
   }
   .logo-wrap img{width:100%;display:block}
@@ -176,15 +176,31 @@
   .faq-q{
     all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
     gap:12px;width:100%;padding:13px 16px;font-family:inherit;font-size:17px;font-weight:600;
-    letter-spacing:.01em;color:#fff;transition:background-color .5s ease;
+    letter-spacing:.01em;color:#fff;transition:background-color .5s ease,color .5s ease;
   }
   .faq-q:hover{background:rgba(255,255,255,.05)}
-  .faq-sign{color:var(--gold);font-size:20px;line-height:1;flex:none;transition:transform .55s cubic-bezier(.4,0,.2,1)}
-  .faq-item.open .faq-sign{transform:rotate(45deg)}
+  .faq-item.open .faq-q{background:rgba(230,192,95,.1);color:var(--gold-light)}
+  .faq-sign{
+    display:flex;align-items:center;justify-content:center;flex:none;width:22px;height:22px;
+    border-radius:50%;background:rgba(230,192,95,.15);color:var(--gold);
+    font-size:16px;line-height:1;transition:transform .55s cubic-bezier(.4,0,.2,1),background-color .5s ease;
+  }
+  .faq-item.open .faq-sign{transform:rotate(45deg);background:var(--gold);color:var(--card-dark)}
   .faq-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.4,0,.2,1)}
   .faq-item.open .faq-panel{grid-template-rows:1fr}
   .faq-panel-inner{overflow:hidden;min-height:0}
-  .faq-body{margin:0;padding:0 16px 14px;font-size:15.5px;line-height:1.45;color:rgba(255,255,255,.78)}
+  .faq-answer{
+    display:flex;align-items:flex-start;gap:10px;
+    margin:0 16px 14px;padding-top:12px;
+    border-top:1px solid rgba(230,192,95,.2);
+  }
+  .faq-answer-badge{
+    flex:none;width:20px;height:20px;border-radius:50%;margin-top:1px;
+    background:var(--gold);color:var(--card-dark);
+    font-family:Anton,sans-serif;font-size:10.5px;letter-spacing:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .faq-body{margin:0;font-size:15.5px;line-height:1.45;color:rgba(255,255,255,.82)}
 
   footer{margin-top:8px;text-align:center;display:flex;flex-direction:column;gap:6px}
   .footer-tagline{
@@ -198,7 +214,7 @@
 
   @media (min-width:768px){
     main{max-width:480px;padding-top:44px}
-    .logo-wrap{width:180px}
+    .logo-wrap{width:260px}
     .brand-name{font-size:46px}
     .tagline{font-size:20px}
   }
@@ -265,35 +281,35 @@
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Qual o prazo de entrega?<span class="faq-sign">+</span></button>
         <div class="faq-panel"><div class="faq-panel-inner">
-          <p class="faq-body">Enviamos em até 2 dias úteis após a confirmação do pagamento. O prazo dos Correios varia conforme a região.</p>
+          <div class="faq-answer"><span class="faq-answer-badge">R</span><p class="faq-body">Enviamos em até 2 dias úteis após a confirmação do pagamento. O prazo dos Correios varia conforme a região.</p></div>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Frete grátis a partir de quanto?<span class="faq-sign">+</span></button>
         <div class="faq-panel"><div class="faq-panel-inner">
-          <p class="faq-body">Frete grátis para compras acima de R$499.</p>
+          <div class="faq-answer"><span class="faq-answer-badge">R</span><p class="faq-body">Frete grátis para compras acima de R$499.</p></div>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Formas de pagamento aceitas?<span class="faq-sign">+</span></button>
         <div class="faq-panel"><div class="faq-panel-inner">
-          <p class="faq-body">Pix, cartão de crédito (parcelado) e boleto.</p>
+          <div class="faq-answer"><span class="faq-answer-badge">R</span><p class="faq-body">Pix, cartão de crédito (parcelado) e boleto.</p></div>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">Como faço para trocar um produto?<span class="faq-sign">+</span></button>
         <div class="faq-panel"><div class="faq-panel-inner">
-          <p class="faq-body">Chame no WhatsApp em até 7 dias após o recebimento, com a peça sem uso e com etiqueta.</p>
+          <div class="faq-answer"><span class="faq-answer-badge">R</span><p class="faq-body">Chame no WhatsApp em até 7 dias após o recebimento, com a peça sem uso e com etiqueta.</p></div>
         </div></div>
       </div>
 
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">As peças são originais?<span class="faq-sign">+</span></button>
         <div class="faq-panel"><div class="faq-panel-inner">
-          <p class="faq-body">Sim. Trabalhamos apenas com peças originais das marcas.</p>
+          <div class="faq-answer"><span class="faq-answer-badge">R</span><p class="faq-body">Sim. Trabalhamos apenas com peças originais das marcas.</p></div>
         </div></div>
       </div>
     </section>
