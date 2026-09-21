@@ -50,6 +50,13 @@
     -webkit-tap-highlight-color:transparent;
     color:#fff;
     position:relative;
+    -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+    -webkit-touch-callout:none;
+  }
+  img{
+    -webkit-user-drag:none;user-drag:none;
+    -webkit-touch-callout:none;
+    pointer-events:none;
   }
   html::-webkit-scrollbar,body::-webkit-scrollbar{width:10px}
   html::-webkit-scrollbar-track,body::-webkit-scrollbar-track{background:var(--bg-deep)}
@@ -221,15 +228,15 @@
   </div>
 
   <div class="content-clip">
-  <div class="leaf-deco leaf-tl"><img src="icone-faixa.png" alt=""></div>
-  <div class="leaf-deco leaf-tr"><img src="icone-faixa.png" alt=""></div>
-  <div class="leaf-deco leaf-bl"><img src="icone-faixa.png" alt=""></div>
-  <div class="leaf-deco leaf-br"><img src="icone-faixa.png" alt=""></div>
+  <div class="leaf-deco leaf-tl"><img src="icone-faixa.png" alt="" draggable="false"></div>
+  <div class="leaf-deco leaf-tr"><img src="icone-faixa.png" alt="" draggable="false"></div>
+  <div class="leaf-deco leaf-bl"><img src="icone-faixa.png" alt="" draggable="false"></div>
+  <div class="leaf-deco leaf-br"><img src="icone-faixa.png" alt="" draggable="false"></div>
 
   <main>
     <header>
       <div class="logo-wrap">
-        <img src="logo-015-store.png" alt="015.Store">
+        <img src="logo-015-store.png" alt="015.Store" draggable="false">
       </div>
       <p class="tagline">Trajando a quebrada desde 2019!</p>
       <div class="divider"></div>
@@ -280,7 +287,7 @@
     var TRACK_GAP = 26; // must match .band-track's CSS gap
     var html = '';
     for (var i = 0; i < 10; i++) {
-      html += '<span class="band-item">' + TXT + '</span><img class="band-icon" src="crown-mini.png" alt="">';
+      html += '<span class="band-item">' + TXT + '</span><img class="band-icon" src="crown-mini.png" alt="" draggable="false">';
     }
     groupA.innerHTML = html;
     groupB.innerHTML = html;
@@ -301,6 +308,10 @@
       window.addEventListener('resize', updateDistance);
     }
   })();
+
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+  document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+  document.addEventListener('selectstart', function(e){ e.preventDefault(); });
 </script>
 </body>
 </html>
